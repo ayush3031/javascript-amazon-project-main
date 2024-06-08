@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js' //.. means go out of the file 
+
 
 let html = '';
 prod.forEach((product)=>{
