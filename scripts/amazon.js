@@ -80,7 +80,11 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>
                 quantity: 1
             })
         }
-        
+        let quantity=0;
+        cart.forEach((item)=>{
+            quantity+=item.quantity;
+        });
+        document.querySelector('.js-cart-quantity').innerHTML=quantity;
         console.log(cart);
     })
 })
