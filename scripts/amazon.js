@@ -1,4 +1,4 @@
-import {cart} from '../data/cart.js' //.. means go out of the file 
+import {cart,addToCart} from '../data/cart.js' //.. means go out of the file 
 import{prod} from '../data/products.js'
 
 let html = '';
@@ -54,8 +54,22 @@ prod.forEach((product)=>{
         </div>
     `
 });
-document.querySelector('.js-products-grid').innerHTML = 
-    html;
+document.querySelector('.js-products-grid').innerHTML = html;
+
+
+
+
+function updateQuantity() {
+    let quantity=0;
+        cart.forEach((cartItem)=>{
+            quantity+=cartItem.quantity;
+        });
+        document.querySelector('.js-cart-quantity').innerHTML=quantity;
+        console.log(cart);
+}
+
+
+
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>
 {
     button.addEventListener('click',()=>
@@ -63,30 +77,9 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>
         console.log(button.dataset.productId); //gives data attribue and chnges kabab case to camel case
 
         const prodId = button.dataset.productId;
-        let matchingItem;
-        cart.forEach((item)=>{
-            if(prodId == item.productId)
-            {
-                matchingItem = item;
-            }
-        })
 
-        if(matchingItem) 
-        {
-            matchingItem.quantity +=1;
-        }
-        else
-        {
-            cart.push({
-                productId: prodId,
-                quantity: 1
-            })
-        }
-        let quantity=0;
-        cart.forEach((item)=>{
-            quantity+=item.quantity;
-        });
-        document.querySelector('.js-cart-quantity').innerHTML=quantity;
-        console.log(cart);
+        addToCart(prodId);
+        updateQuantity();
+        
     })
 })
