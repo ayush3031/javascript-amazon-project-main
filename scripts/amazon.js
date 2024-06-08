@@ -68,7 +68,7 @@ function updateQuantity() {
         console.log(cart);
 }
 
-document.querySelector('js-cart-quantity').innerHTML = updateQuantity();
+
 
 document.querySelectorAll('.js-add-to-cart').forEach((button)=>
 {
