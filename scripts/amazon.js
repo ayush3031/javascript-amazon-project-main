@@ -1,5 +1,5 @@
 import {cart} from '../data/cart.js' //.. means go out of the file 
-
+import{prod} from '../data/products.js'
 
 let html = '';
 prod.forEach((product)=>{
