@@ -1,6 +1,7 @@
-import {cart} from '../data/cart.js';
+import {cart,deleteFromCart} from '../data/cart.js';
 import { prod } from '../data/products.js';
 import { formatCurrency } from './utility/money.js';
+
 
 let cartSummaryHTML ='';
 
@@ -40,7 +41,7 @@ cart.forEach((cartItem)=>
                   <span class="update-quantity-link link-primary">
                     Update
                   </span>
-                  <span class="delete-quantity-link link-primary">
+                  <span class="delete-quantity-link link-primary js-delete-link" data-product-link="${productId}">
                     Delete
                   </span>
                 </div>
@@ -94,5 +95,14 @@ cart.forEach((cartItem)=>
           </div>`
         cartSummaryHTML+=html;
 })
-console.log(cartSummaryHTML);
+//console.log(cartSummaryHTML);
 document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
+
+document.querySelectorAll('.js-delete-link').forEach((link)=>
+{
+    link.addEventListener('click',()=>
+    {
+        deleteFromCart(link.dataset.productLink);
+        
+    })
+})
