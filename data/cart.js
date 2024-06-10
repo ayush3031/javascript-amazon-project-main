@@ -15,6 +15,19 @@ if(!cart){
 }
 
 
+export function updateDeliveryOptions (productId , deliveryOptionId) {
+    let matchingItem;
+    cart.forEach((item)=>{
+        if(productId == item.productId)
+        {
+            matchingItem = item;
+        }
+    })
+    matchingItem.deliveryOptionsId = deliveryOptionId;
+
+    saveToStorage();
+}
+
 
 function saveToStorage() {
     localStorage.setItem('cart',JSON.stringify(cart));
