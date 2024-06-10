@@ -8,6 +8,9 @@ import deliveryOptions from '../data/deliveryoptions.js';
 let cartproductId;
 let cartdeliveryOption;
 
+function renderOrderSummary() {
+
+
 let cartSummaryHTML ='';
 
 cart.forEach((cartItem)=>
@@ -146,5 +149,8 @@ document.querySelectorAll('.js-delivery-option').forEach((element)=>{
         console.log(deliveryOption);
         
         updateDeliveryOptions(productId,deliveryOption)
+        renderOrderSummary();
     })
 })
+}
+renderOrderSummary();
