@@ -1,6 +1,9 @@
 import {cart,addToCart} from '../data/cart.js' //.. means go out of the file 
 import{prod} from '../data/products.js'
 import { formatCurrency } from './utility/money.js';
+
+
+updateQuantity();
 let html = '';
 prod.forEach((product)=>{
      html+= `
@@ -27,7 +30,8 @@ prod.forEach((product)=>{
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-selected-option" data-selected-val=
+            "${product.id}">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -42,10 +46,10 @@ prod.forEach((product)=>{
           </div>
 
           <div class="product-spacer"></div>
-
-          <div class="added-to-cart">
+          
+          <div class="added-to-cart js-added-to-cart" data-added-cart="${product.id}">
             <img src="images/icons/checkmark.png">
-            Added
+            Added!
           </div>
 
           <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
@@ -62,10 +66,10 @@ document.querySelector('.js-products-grid').innerHTML = html;
 function updateQuantity() {
     let quantity=0;
         cart.forEach((cartItem)=>{
-            quantity+=cartItem.quantity;
+            quantity++;
         });
         document.querySelector('.js-cart-quantity').innerHTML=quantity;
-        console.log(cart);
+        //console.log(cart);
 }
 
 
@@ -77,8 +81,33 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>
         console.log(button.dataset.productId); //gives data attribue and chnges kabab case to camel case
 
         const prodId = button.dataset.productId;
+        
 
-        addToCart(prodId);
+        // adding added text on top of add to cart 
+        document.querySelectorAll('.js-added-to-cart').forEach((addedToCart)=>{
+            
+            if(addedToCart.dataset.addedCart == prodId)
+            {
+                
+                addedToCart.style.opacity = "1";
+            }
+        })
+        //adding added text code ends
+
+        //updating cart with selected quantity
+
+        let selectedQuantity;
+        document.querySelectorAll('.js-selected-option').forEach((selectedOption)=>{
+            
+            if(selectedOption.dataset.selectedVal == prodId)
+            {
+                selectedQuantity = selectedOption.value;
+                console.log(selectedQuantity);
+            }
+        })
+
+
+        addToCart(prodId,selectedQuantity);
         updateQuantity();
         
     })

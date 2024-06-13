@@ -9,9 +9,26 @@ import { renderPaymentSummary } from './paymentSummary.js';
 
 let cartproductId;
 let cartdeliveryOption;
+export function getItemQuantity() 
+{
+    let cnt=0;
+    cart.forEach(()=>
+    {
+        cnt++;
+    })
+    return cnt;
+}
+
+function headerUpdate() 
+{
+    document.querySelector('.js-checkout-item').innerHTML= `
+    Checkout (<a class="return-to-home-link js-checkout-item"
+    href="amazon.html">${getItemQuantity() } items</a>)`;
+}
 
 export function renderOrderSummary() {
 
+  headerUpdate() ;
 
 let cartSummaryHTML ='';
 
@@ -64,7 +81,7 @@ cart.forEach((cartItem)=>
                   <span>
                     Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+                  <span class="update-quantity-link link-primary js-update-button" data-update-button="${productId}">
                     Update
                   </span>
                   <span class="delete-quantity-link link-primary js-delete-link" data-product-link="${productId}">
@@ -99,6 +116,8 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
         console.log(container);
         container.remove();
+
+        renderOrderSummary();
     })
 })
 
@@ -156,5 +175,21 @@ document.querySelectorAll('.js-delivery-option').forEach((element)=>{
         renderPaymentSummary();
     })
 })
+
+
+//update button 
+/*document.querySelectorAll('.js-update-button').forEach((button)=>{
+  button.addEventListener('click',()=>{
+    console.log("hello");
+    button.innerHTML = `
+    <form>
+    <input class="input-updated-quantity" type="number" min="0" max="10">
+    <input type="submit">
+    </form> `;
+  })
+})
+
+//update button code ends*/
 }
 renderOrderSummary();
+

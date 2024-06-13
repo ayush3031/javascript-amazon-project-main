@@ -31,11 +31,11 @@ export function updateDeliveryOptions (productId , deliveryOptionId) {
 }
 
 
-function saveToStorage() {
+export function saveToStorage() {
     localStorage.setItem('cart',JSON.stringify(cart));
 }
 
-export function addToCart(prodId) {
+export function addToCart(prodId,selectedQuantity) {
 
     let matchingItem;
     cart.forEach((item)=>{
@@ -47,13 +47,16 @@ export function addToCart(prodId) {
 
     if(matchingItem) 
     {
-        matchingItem.quantity +=1;
+        const sum = Number(matchingItem.quantity)+Number(selectedQuantity);
+        console.log(matchingItem.quantity);
+        matchingItem.quantity = sum;
+        console.log(matchingItem.quantity);
     }
     else
     {
         cart.push({
             productId: prodId,
-            quantity: 1,
+            quantity: selectedQuantity,
             deliveryOptionsId: '1'
         })
     }
