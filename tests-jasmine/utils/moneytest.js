@@ -1,4 +1,6 @@
-import { formatCurrency } from '../scripts/utility/money.js';
+import { formatCurrency } from '../../scripts/utility/money.js';
+
+
 
 describe('test suite : formatCurrency',()=>{
     it('convert to 2 decimal places', () =>{
@@ -12,3 +14,4 @@ describe('test suite : formatCurrency',()=>{
         expect(formatCurrency(2000.5)).toEqual('2001.00');
     });
 });
+

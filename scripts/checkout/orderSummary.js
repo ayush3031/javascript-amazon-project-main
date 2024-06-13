@@ -1,6 +1,6 @@
 import {cart,deleteFromCart,updateDeliveryOptions} from '../../data/cart.js';
 import { prod } from '../../data/products.js';
-import  formatCurrency  from '../utility/money.js';
+import  {formatCurrency}  from '../utility/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryoptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
