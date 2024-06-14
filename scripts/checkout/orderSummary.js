@@ -178,7 +178,7 @@ document.querySelectorAll('.js-delivery-option').forEach((element)=>{
 
 
 //update button 
-/*document.querySelectorAll('.js-update-button').forEach((button)=>{
+document.querySelectorAll('.js-update-button').forEach((button)=>{
   button.addEventListener('click',()=>{
     console.log("hello");
     button.innerHTML = `
