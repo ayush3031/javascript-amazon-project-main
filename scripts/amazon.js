@@ -9,6 +9,7 @@ prod.forEach((product)=>{
      html+= `
     <div class="product-container">
           <div class="product-image-container">
+          
             <img class="product-image"
               src="${product.image}">
           </div>
@@ -44,6 +45,8 @@ prod.forEach((product)=>{
               <option value="10">10</option>
             </select>
           </div>
+
+          ${product.extraInfoHTML()}
 
           <div class="product-spacer"></div>
           
