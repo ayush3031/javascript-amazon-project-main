@@ -35,10 +35,11 @@ let cartSummaryHTML ='';
 cart.forEach((cartItem)=>
 {
     const productId = cartItem.productId;
-    let productName,productImage,productPrice,productQuantity;
+    let productName,productImage,productPrice,productQuantity,matchingItem;
     prod.forEach((product)=>{
         if(product.id == productId)
         {
+            matchingItem = product;
             productName=product.name;
             productImage=product.image;
             productPrice=product.priceCents;
@@ -75,7 +76,7 @@ cart.forEach((cartItem)=>
                   ${productName}
                 </div>
                 <div class="product-price">
-                 Rs.${formatCurrency(productPrice)}
+                  ${matchingItem.getPrice()}
                 </div>
                 <div class="product-quantity">
                   <span>
