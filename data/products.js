@@ -18,11 +18,11 @@ class Product {
   }
 
   getStarsUrl(){
-    return `images/ratings/rating-${(this.rating.stars)*10}.png`
+    return `images/ratings/rating-${(this.rating.stars)*10}.png`;
   }
 
   getPrice(){
-     return `Rs.${formatCurrency(this.priceCents)}`
+     return `Rs.${formatCurrency(this.priceCents)}`;
   }
 
   extraInfoHTML() {
@@ -45,12 +45,45 @@ class Clothing extends Product {
 }
 
 
-const date = new Date();
+/*const date = new Date();
 console.log(date);
-console.log (date.toLocaleTimeString());
+console.log (date.toLocaleTimeString());*/
+
+export let prod = [];
 
 
-export const prod = [
+export function loadProducts(fun) {
+  const xhr = new XMLHttpRequest();
+  xhr.addEventListener('load',()=>{
+    prod = JSON.parse(xhr.response).map((productDetails)=>{
+      //console.log('type' in productDetails);
+      if( 'type' in productDetails)
+        {
+            if(productDetails.type === 'clothing')
+            return new Clothing(productDetails);
+        }
+        else
+        {
+          return new Product(productDetails);
+        }
+    });
+    fun();
+    console.log(typeof(prod));
+    console.log('load products');
+    
+  })
+  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.send();
+}
+
+
+//loadProducts();
+
+
+
+
+
+/*export const prod = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -721,7 +754,7 @@ export const prod = [
       return new Product(productDetails);
     }
 });
-
+console.log(prod);*/
 
 
 export function getProduct(productId) {

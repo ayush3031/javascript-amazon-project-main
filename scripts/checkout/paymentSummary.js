@@ -3,9 +3,9 @@ import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryoptions.js';
 import {formatCurrency} from '../utility/money.js';
 import { getItemQuantity } from './orderSummary.js';
+import { loadProducts } from '../../data/products.js';
 
-
-
+loadProducts(renderPaymentSummary);
 export function renderPaymentSummary() {
     let cost = 0;
     let shippingPrice = 0;

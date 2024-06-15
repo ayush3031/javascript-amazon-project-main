@@ -95,7 +95,7 @@ class Cart{
 }
 
 const cart = new Cart('cart-oop');
-const businessCart = new Cart('cart-business');
+//const businessCart = new Cart('cart-business');
 
 //cart.#localStorageKey = 'ii';
 console.log(cart);

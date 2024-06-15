@@ -4,7 +4,7 @@ import  {formatCurrency}  from '../utility/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryoptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
-
+import { loadProducts } from '../../data/products.js';
 //view
 
 let cartproductId;
@@ -25,7 +25,7 @@ function headerUpdate()
     Checkout (<a class="return-to-home-link js-checkout-item"
     href="amazon.html">${getItemQuantity() } items</a>)`;
 }
-
+loadProducts(renderOrderSummary)
 export function renderOrderSummary() {
 
   headerUpdate() ;
@@ -34,9 +34,13 @@ let cartSummaryHTML ='';
 
 cart.forEach((cartItem)=>
 {
+  console.log(cartItem.productId);
+    
     const productId = cartItem.productId;
     let productName,productImage,productPrice,productQuantity,matchingItem;
+    //console.log(prod[0]);
     prod.forEach((product)=>{
+        //console.log(product.id)
         if(product.id == productId)
         {
             matchingItem = product;
@@ -60,6 +64,7 @@ cart.forEach((cartItem)=>
 
     console.log(presentDate)
     cartproductId = cartItem.productId;
+    console.log(matchingItem);
 
     let html = `
     <div class="cart-item-container js-cart-item-container-${productId}">
