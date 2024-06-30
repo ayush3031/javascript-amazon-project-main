@@ -40,7 +40,7 @@ cart.forEach((cartItem)=>
     let productName,productImage,productPrice,productQuantity,matchingItem;
     //console.log(prod[0]);
     prod.forEach((product)=>{
-        //console.log(product.id)
+        console.log(product.id)
         if(product.id == productId)
         {
             matchingItem = product;
