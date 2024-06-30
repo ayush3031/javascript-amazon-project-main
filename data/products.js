@@ -1,4 +1,16 @@
-import {formatCurrency} from '../scripts/utility/money.js'
+import {formatCurrency} from '../scripts/utility/money.js';
+
+export function getProduct(productId) {
+  let matchingProduct;
+
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingProduct = product;
+    }
+  });
+
+  return matchingProduct;
+}
 
 class Product {
   id;
@@ -6,84 +18,131 @@ class Product {
   name;
   rating;
   priceCents;
-  
 
-  constructor(productDetails) 
-  {
-     this.id = productDetails.id
-     this.image = productDetails.image
-     this.name = productDetails.name
-     this.rating = productDetails.rating
-     this.priceCents = productDetails.priceCents
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
   }
 
-  getStarsUrl(){
-    return `images/ratings/rating-${(this.rating.stars)*10}.png`;
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
   }
 
-  getPrice(){
-     return `Rs.${formatCurrency(this.priceCents)}`;
+  getPrice() {
+    return `$${formatCurrency(this.priceCents)}`;
   }
 
   extraInfoHTML() {
-    return ``;
+    return '';
   }
 }
-
 
 class Clothing extends Product {
   sizeChartLink;
 
-  constructor(productDetails){
-    super(productDetails); //calls constructor of parent class that is 
+  constructor(productDetails) {
+    super(productDetails);
     this.sizeChartLink = productDetails.sizeChartLink;
   }
 
   extraInfoHTML() {
-    return `<a href="${this.sizeChartLink}" target = "_blank"> Size Chart </a>`;
+    // super.extraInfoHTML();
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">
+        Size chart
+      </a>
+    `;
   }
 }
 
-
-/*const date = new Date();
+/*
+const date = new Date();
 console.log(date);
-console.log (date.toLocaleTimeString());*/
+console.log(date.toLocaleTimeString());
+*/
+
+/*
+console.log(this);
+
+const object2 = {
+  a: 2,
+  b: this.a
+};
+*/
+
+/*
+function logThis() {
+  console.log(this);
+}
+logThis();
+logThis.call('hello');
+
+this
+const object3 = {
+  method: () => {
+    console.log(this);
+  }
+};
+object3.method();
+*/
 
 export let prod = [];
 
+export function loadProductsFetch() {
+  const promise = fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response) => {
+    return response.json();
+  }).then((productsData) => {
+    products = productsData.map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+    });
+
+    console.log('load products');
+  }).catch((error) => {
+    console.log('Unexpected error. Please try again later.');
+  });
+
+  return promise;
+}
+/*
+loadProductsFetch().then(() => {
+  console.log('next step');
+});
+*/
 
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
-  xhr.addEventListener('load',()=>{
-    prod = JSON.parse(xhr.response).map((productDetails)=>{
-      //console.log('type' in productDetails);
-      if( 'type' in productDetails)
-        {
-            if(productDetails.type === 'clothing')
-            return new Clothing(productDetails);
-        }
-        else
-        {
-          return new Product(productDetails);
-        }
+
+  xhr.addEventListener('load', () => {
+    prod = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
     });
-    fun();
-    console.log(typeof(prod));
+
     console.log('load products');
-    
-  })
-  xhr.open('GET','https://supersimplebackend.dev/products');
+
+    fun();
+  });
+
+  xhr.addEventListener('error', (error) => {
+    console.log('Unexpected error. Please try again later.');
+  });
+
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
 
-
-//loadProducts();
-
-
-
-
-
-/*export const prod = [
+/*
+export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -742,29 +801,10 @@ export function loadProducts(fun) {
       "mens"
     ]
   }
-].map((productDetails)=>{
-  console.log('type' in productDetails);
-  if( 'type' in productDetails)
-    {
-        if(productDetails.type === 'clothing')
-        return new Clothing(productDetails);
-    }
-    else
-    {
-      return new Product(productDetails);
-    }
+].map((productDetails) => {
+  if (productDetails.type === 'clothing') {
+    return new Clothing(productDetails);
+  }
+  return new Product(productDetails);
 });
-console.log(prod);*/
-
-
-export function getProduct(productId) {
-  let matchingProduct;
-  prod.forEach((product)=>{
-    if(product.id === productId)
-      matchingProduct = product;
-  })
-  return matchingProduct;
-}
-
-
-
+*/
