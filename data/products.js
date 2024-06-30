@@ -3,7 +3,7 @@ import {formatCurrency} from '../scripts/utility/money.js';
 export function getProduct(productId) {
   let matchingProduct;
 
-  products.forEach((product) => {
+  prod.forEach((product) => {
     if (product.id === productId) {
       matchingProduct = product;
     }
