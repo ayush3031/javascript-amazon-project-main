@@ -8,8 +8,8 @@ const p = new Promise(()=>{
 })
 //Promise();
 //import '../data/backend-practice.js'
-//loadProducts(renderOrderSummary);
-//loadProducts(renderPaymentSummary);
+loadProducts(renderOrderSummary);
+loadProducts(renderPaymentSummary);
     //renderOrderSummary();
     //renderPaymentSummary();
 
