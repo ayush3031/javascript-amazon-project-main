@@ -23,7 +23,7 @@ function headerUpdate()
 {
     document.querySelector('.js-checkout-item').innerHTML= `
     Checkout (<a class="return-to-home-link js-checkout-item"
-    href="amazon.html">${getItemQuantity() } items</a>)`;
+    href="index.html">${getItemQuantity() } items</a>)`;
 }
 loadProducts(renderOrderSummary)
 export function renderOrderSummary() {
