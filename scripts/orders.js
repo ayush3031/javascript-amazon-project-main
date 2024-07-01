@@ -51,7 +51,7 @@ export function renderOrders()
 
             <div class="order-header-right-section">
               <div class="order-header-label">Order ID:</div>
-              <div>27cba69d-4c3d-4098-b42d-ac7fa62b7664</div>
+              <div>27cba69d-4c3d-4098-b42d-ac7fa62b${(Math.random().toFixed(3))*1000}</div>
             </div>
           </div>
 
